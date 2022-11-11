@@ -57,7 +57,7 @@ function finishGame() {
 
 function createRandomCircle() {
     const circle = document.createElement('div')
-    const size = getRandomNumber(10, 30)
+    const size = getRandomNumber(15, 30)
     const {width, height} = board.getBoundingClientRect()
     const x = getRandomNumber(0, width - size)
     const y = getRandomNumber(0, height - size)
@@ -71,6 +71,8 @@ function createRandomCircle() {
     circle.style.border = `1px solid rgba(0, 0, 0, .5)`
     
     board.append(circle)
+
+    // reduceCircle(circle, size)
 }
 
 function getRandomNumber(min, max) {
@@ -79,4 +81,20 @@ function getRandomNumber(min, max) {
 
 function getRandomColor() {
     return `#` + (Math.random().toString(16)).substring(2, 8).toUpperCase()
+}
+
+function reduceCircle(element, size) {
+    let counter = size
+
+    setInterval(() => {
+        counter--
+
+        if (counter === 10) {
+            element.remove()
+            createRandomCircle()
+        }   else {
+            element.style.width = `${counter}px`
+            element.style.height = `${counter}px`
+        }
+    }, 100)
 }
